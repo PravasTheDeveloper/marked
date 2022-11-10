@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 function LeftSideContent() {
     return (
         <>
-            <div className='w-1/6 h-full p-16 font-bold flex flex-col justify-between'>
+            <div className='w-1/6 h-full px-10 py-16 2xl:px-16 font-bold flex flex-col justify-between'>
 
                 <div className='w-full h-full'>
                     <div className='bg-white w-full h-full'>

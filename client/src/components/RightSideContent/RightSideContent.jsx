@@ -5,10 +5,10 @@ function RightSideContent() {
     <>
         <div className='h-full'>
             <div className='flex justify-between items-center'>
-                <div className='w-14 h-14'>
+                <div className='w-10 h-10'>
                     <img src="mainimage.jpg" alt="" className='w-full h-full rounded-full' />
                 </div>
-                <div className='text-xl'>
+                <div className='text-lg'>
                     PRAVAS
                 </div>
             </div>

@@ -24,7 +24,7 @@ function HomePageContent({title}) {
 
                     {/* Right Side Div */}
 
-                    <div className='w-1/6 h-full p-16'>
+                    <div className='w-1/6 h-full px-10 py-16 2xl:px-16 '>
                         <RightSideContent />
                     </div>
                 </div>
