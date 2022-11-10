@@ -1,10 +1,11 @@
 import { CursorArrowRippleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 
-function Login() {
+function SignIn() {
 
     const [password, setpassword] = useState(0)
     const [passwordIcon, setpasswordIcon] = useState(0)
+    
     return (
         <>
             <div className='flex items-center justify-center h-screen bg-slate-200'>
@@ -31,8 +32,8 @@ function Login() {
                                             <input type={password == 1?"text":"password"} className='mt-3 w-full h-10 p-4 outline-none border border-slate-300 pr-10' />
                                             {
                                                 passwordIcon == 0?
-                                                <EyeIcon className='h-5 absolute top-6 right-2 cursor-pointer' onClick={() => { setpasswordIcon(!passwordIcon),setpassword(!password) }} />:
-                                                <EyeSlashIcon className='h-5 absolute top-6 right-2 cursor-pointer' onClick={() => { setpasswordIcon(!passwordIcon),setpassword(!password) }} />
+                                                <EyeIcon className='h-5 absolute top-6 right-2 cursor-pointer' onClick={() => { setpasswordIcon(!passwordIcon);setpassword(!password) }} />:
+                                                <EyeSlashIcon className='h-5 absolute top-6 right-2 cursor-pointer' onClick={() => { setpasswordIcon(!passwordIcon);setpassword(!password) }} />
                                             }
                                         </div>
 
@@ -56,4 +57,4 @@ function Login() {
     )
 }
 
-export default Login
+export default SignIn

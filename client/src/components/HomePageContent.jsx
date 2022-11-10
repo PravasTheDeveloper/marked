@@ -6,7 +6,7 @@ import MiddleSideContent from './MiddleSideContent/MiddleSideContent'
 import RightSideContent from './RightSideContent/RightSideContent'
 
 
-function HomePageContent() {
+function HomePageContent({title}) {
     return (
         <>
             <div>
@@ -19,7 +19,7 @@ function HomePageContent() {
                     {/* Mid Side Div */}
 
                     <div className='flex-1 h-full'>
-                        <MiddleSideContent />
+                        <MiddleSideContent title={title} />
                     </div>
 
                     {/* Right Side Div */}
