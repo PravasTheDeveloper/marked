@@ -11,7 +11,7 @@ function MiddleTask() {
         <>
             <div className={showContent == 1 ? 'bg-white w-full shadow-xl rounded-lg mb-10' : 'bg-white w-full h-20 shadow-xl rounded-lg mb-10'}>
 
-                <div className='h-20 flex items-center px-10 border-b-2 cursor-pointer' onClick={() => { setshowContent(!showContent) }}>
+                <div className='h-20 flex items-center px-10 border-b-2 cursor-pointer transition-all duration-1000' onClick={() => { setshowContent(!showContent) }}>
                     <div className='h-6 '>
                         <PencilSquareIcon className='h-full' />
                     </div>
@@ -20,7 +20,7 @@ function MiddleTask() {
                     </div>
                     <div className='h-8 flex items-center'>
                         <div className='h-full flex mr-5 text-black'>
-                            <div className='h-full bg-rose-500 p-2 rounded-md cursor-pointer mr-5' onClick={() => setshowContent(1)}>
+                            <div className='h-full bg-rose-500 p-2 rounded-md cursor-pointer mr-5' onClick={() => alert("hello")}>
                                 <TrashIcon className='h-full' />
                             </div>
 
@@ -28,7 +28,7 @@ function MiddleTask() {
                         <ChevronDownIcon className='h-full' />
                     </div>
                 </div>
-                <div className={showContent == 1 ? `w-full bg-white shadow-lg rounded-b-lg p-10 relative` : `hidden`}>
+                <div className={showContent == 1 ? `w-full  bg-white shadow-lg rounded-b-lg p-10 relative` : `hidden`}>
                     <div className='flex items-center'>
                         <div className='h-6 mr-6'>
                             <BookmarkIcon className='h-full text-lime-500' />
