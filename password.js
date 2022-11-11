@@ -1,2 +1,0 @@
-// PRAVAS
-// NCD9KdApWcvFnGdA
