@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 
 const userallSchema = new mongoose.Schema({
     fname: {
@@ -34,6 +36,14 @@ const userallSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    premieamAcc: {
+        type: Boolean,
+        default:false
+    },
+    verifiedAcct: {
+        type: Boolean,
+        default:false
+    },
     date: {
         type: Date,
         default: Date.now
@@ -52,6 +62,21 @@ userallSchema.pre("save", async function (next) {
     }
     next();
 });
+
+//Generate Web Token
+
+userallSchema.methods.generateAuthToken = async function(){
+    try{
+        let token = jwt.sign({_id:this._id} , process.env.SECRET_KEY);
+        this.tokens = this.tokens.concat({token:token});
+        await this.save();
+        return token;
+        // console.log(process.env.SECRET_KEY)
+    }catch(err)
+    {
+        console.log(err);
+    }
+}
 
 
 //WE NEED TO CREATE COLLECTION

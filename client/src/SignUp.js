@@ -1,11 +1,12 @@
 import { CursorArrowRippleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import SignUpEmailPass from './components/SignUpFunc/SignUpEmailPass';
 
 function SignUp() {
 
-    const [signUpPage, setsignUpPage] = useState(2)
+    const [signUpPage, setsignUpPage] = useState(1)
     const [password, setpassword] = useState(0)
     const [passwordIcon, setpasswordIcon] = useState(0)
 
@@ -15,9 +16,13 @@ function SignUp() {
                 <div className='w-1/2 shadow-2xl h-2/3 flex mx-auto'>
                     <div className='w-1/3 h-full bg-cyan-600 text-3xl text-white text-center flex flex-col justify-center items-center'>
                         <CursorArrowRippleIcon className='w-1/2 mr-5 text-white mb-8' /> MARKED
+                        <h1 className='text-white text-lg mt-10'>Already have an accout ? <Link class='text-slate-100' to="/signin">Sign In</Link></h1>
+                    </div>
+                    <div>
+                        
                     </div>
                     <div className='flex-1 h-full w-full bg-white flex items-center'>
-                        {   signUpPage == 1 ? 
+                        {signUpPage == 1 ?
                             <div className='w-full h-1/2 flex flex-col justify-between items-center'>
                                 <div className='text-2xl'>
                                     Sign Up
@@ -26,7 +31,7 @@ function SignUp() {
                                     <h1 className='text-slate-400'>
                                         Enter Your Sign Up Method
                                     </h1>
-                                    <div className='bg-slate-100 shadow-xl text-lg p-2 px-9 text-black mt-10 flex cursor-pointer'>
+                                    <div className='bg-slate-100 shadow-xl text-lg p-2 px-9 text-black mt-10 flex cursor-pointer' onClick={()=>{setsignUpPage(2)}}>
                                         Email And Password
                                     </div>
                                     <div className='bg-slate-100 shadow-xl text-lg p-2 px-9 text-black mt-10 flex cursor-pointer'>
@@ -34,11 +39,11 @@ function SignUp() {
                                     </div>
                                 </div>
                             </div> :
-                             signUpPage == 2 ? 
-                            <SignUpEmailPass />: 
-                            <h1>hi</h1>
+                            signUpPage == 2 ?
+                                <SignUpEmailPass /> :
+                                <h1>hi</h1>
                         }
-                        
+
                         {/* <div className='w-full h-1/2 flex flex-col justify-between items-center'>
                             <div className='text-2xl'>
                                 LOGIN

@@ -43,16 +43,7 @@ function LeftSideContent() {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <div className='h-5 flex font-bold items-center mb-8 cursor-pointer'>
-                            <Cog6ToothIcon className='h-full mr-4' /> Setting
-                        </div>
-                        <div className='h-5 flex font-bold items-center mb-8  cursor-pointer'>
-                            <ArrowRightOnRectangleIcon className='h-full mr-4' /> Log Out
-                        </div>
-                    </div>
-                </div>
+                
 
 
             </div>

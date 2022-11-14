@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { CursorArrowRippleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import { useNavigate } from 'react-router-dom';
+import { ArrowLongLeftIcon, BackwardIcon, CursorArrowRippleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function SignUpEmailPass() {
@@ -12,7 +12,7 @@ function SignUpEmailPass() {
     lname: "",
     email: "",
     profession: "",
-    country:"",
+    country: "",
     phone: "",
     password: "",
     cpassword: ""
@@ -38,7 +38,7 @@ function SignUpEmailPass() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        fname, lname, email, profession,country, phone, password, cpassword
+        fname, lname, email, profession, country, phone, password, cpassword
       })
     });
 
@@ -64,8 +64,11 @@ function SignUpEmailPass() {
 
   return (
     <>
-      <div className='w-full h-full py-10 flex flex-col justify-between items-center overflow-y-scroll'>
-        <div className='text-2xl'>
+      <div className='w-full h-full py-10 flex flex-col justify-between items-center overflow-y-scroll relative'>
+        <div className='absolute w-7 left-14 top-14'>
+            <ArrowLongLeftIcon className='w-full text-slate-500' />
+        </div>
+        <div className='text-2xl mb-5'>
           Sign Up
         </div>
         <div className='w-full'>
