@@ -1,5 +1,5 @@
 // import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './Home';
 import SignIn from './SignIn';
 import Project from './Project';
@@ -10,7 +10,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
   const navigate = useNavigate();
+  console.log(location.pathname)
 
   const callAboutPage = async () => {
     try {
@@ -30,7 +32,7 @@ function App() {
       if (!res.status === 200) {
         const error = new Error(res.error);
         throw error;
-      }else if(res.status === 200){
+      } else if (res.status === 200) {
         navigate("/")
       }
     } catch (err) {
@@ -50,18 +52,21 @@ function App() {
   return (
     <>
       <div className='flex h-screen'>
-        <LeftSideContent />
-        <div className='flex-1 h-full overflow-scroll overflow-x-hidden'>
+        {location.pathname === '/signin'?null:location.pathname === '/signup' ? null : <LeftSideContent data={userData} />}
+        <div className='flex-1 h-full overflow-hidden bg-slate-100'>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home data={userData} />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/project" element={<Project />} />
           </Routes>
         </div>
-        <div className='w-1/6 h-full px-10 py-16 2xl:px-16 '>
-          <RightSideContent data={userData} />
-        </div>
+        {location.pathname === '/signin' ?
+          null:location.pathname === '/signup' ?
+            
+            null:<div className='w-1/6 h-full px-10 py-16 2xl:px-16 '>
+            <RightSideContent data={userData} />
+          </div>}
 
       </div>
 

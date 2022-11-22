@@ -11,6 +11,7 @@ router.use(cookieParser());
 const AllUser = require("../models/UserSchema");
 const AllTask = require("../models/TaskSchema");
 const AllProject = require("../models/ProjectSchema");
+const AllProjectTask = require("../models/ProjectTask");
 
 //HOME ROUTER ===============================
 
@@ -44,15 +45,13 @@ router.post("/register", async (req, res) => {
                     const registerTask = new AllTask({
                         userName
                     });
-                    const registerProject = new AllProject({
-                        userName
-                    });
-                    
+
+
                     const registeredUser = await registerUser.save();
                     const registeredTask = await registerTask.save();
-                    const registeredProject = await registerProject.save();
 
-                    if (registeredUser && registeredTask && registeredProject) {
+
+                    if (registeredUser && registeredTask) {
                         res.status(200).json({ messege: "Detail Saved" })
                     }
                 } else {
@@ -106,7 +105,7 @@ router.post("/regtask", async (req, res) => {
     const { userName } = req.body;
 
     try {
-        
+
 
         if (registeredTask) {
             res.status(200).json({ messege: "Detail Saved" })
@@ -126,5 +125,195 @@ router.post("/regtask", async (req, res) => {
 router.get("/today", authenticate, (req, res) => {
     res.send(req.rootUser);
 })
+
+router.post("/addtask", async (req, res) => {
+    const { userName, taskChatagory, titile, subtitle, content, lastDate, cDate } = req.body;
+    if (!taskChatagory || !titile || !subtitle || !content || !lastDate || !cDate) {
+        return res.status(422).json({ error: "Please Fill All The Feild" });
+    } else {
+        try {
+
+            const UserExist = await AllTask.findOne({ userName: userName });
+
+            UserExist.tasks = UserExist.tasks.concat({ taskChatagory, titile, subtitle, content, lastDate, cDate });
+
+            const registered = await UserExist.save();
+
+            if (registered) {
+                res.status(200).json({ messege: "Detail Saved" })
+            } else {
+                res.status(401).json({ error: "Your Password Is Not Same !" });
+            }
+
+        } catch (err) {
+            res.status(400).json({ error: `${err}` })
+            console.log(err);
+        }
+
+    }
+
+});
+
+
+router.post("/gettaskdata", authenticate, async (req, res) => {
+    // console.log(req.rootUser.userName);
+    // res.send(req.rootUser);
+    const userName = req.rootUser.userName;
+
+    const UserExist = await AllTask.findOne({ userName: userName });
+
+    res.send(UserExist.tasks);
+})
+
+router.post("/dailytaskdone", async (req, res) => {
+    const { id } = req.body;
+
+    try {
+
+        const UserExist = await AllTask.updateOne({ "tasks._id": id }, { $set: { "tasks.$.done": true } })
+
+    } catch (err) {
+        res.status(400).json({ error: `${err}` })
+        console.log(err);
+    }
+
+
+});
+
+router.post("/dailytaskdelete", async (req, res) => {
+    const { id } = req.body;
+
+    try {
+
+        const UserExist = await AllTask.updateOne({ "tasks._id": id }, { $pull: { tasks: { _id: id } } })
+
+        res.send(UserExist)
+
+    } catch (err) {
+        res.status(400).json({ error: `${err}` })
+        console.log(err);
+    }
+
+
+});
+
+router.post("/projectcreate", authenticate, async (req, res) => {
+    const userNameAdmin = req.rootUser.userName;
+    const { projectName, projectType } = req.body;
+
+    if (!projectName || !userNameAdmin) {
+        return res.status(422).json({ error: "Please Fill All The Feild" });
+    } else {
+        try {
+            const ProjectExist = await AllProject.findOne({ projectName: projectName });
+            if (ProjectExist) {
+                return res.status(422).json({ error: "The Project Is Already Exist" });
+            } else {
+
+
+
+                const registerProject = new AllProject({ projectName, userNameAdmin, projectType });
+
+                const regitered = await registerProject.save();
+
+                if (regitered) {
+                    res.status(200).json({ messege: "Detail Saved" })
+                } else {
+                    res.status(401).json({ error: "Your Password Is Not Same !" });
+                }
+            }
+
+        } catch (err) {
+            res.status(400).json({ error: `${err}` })
+            console.log(err);
+        }
+
+    }
+
+
+});
+
+// router.post("/getPorjectAllData", async (req, res) => {
+
+//     const { userNameAdmin }= req.body;
+
+//     console.log(userNameAdmin)
+
+
+
+//     res.send(UserExist);
+// })
+router.get("/getPorjectAllData", authenticate, async (req, res) => {
+    // console.log(req.rootUser.userName);
+    // res.send(req.rootUser);
+    const userNameAdmin = req.rootUser.userName;
+
+    const UserExist = await AllProject.find({ userNameAdmin: userNameAdmin });
+
+    res.send(UserExist);
+})
+
+router.get("/searchMembers", async (req, res) => {
+
+    // const {userNameAdmin} = req.body;
+
+    const UserExist = await AllUser.find();
+
+    res.send(UserExist);
+})
+
+router.post("/addProjectMembers", async (req, res) => {
+
+    const { projectMembersUname, projectName, projectMembersName } = req.body;
+    // console.log(projectMembersUname)
+    if (!projectMembersName || !projectName) {
+        return res.status(422).json({ error: "Please Fill All The Feild" });
+    } else {
+        try {
+
+            const UserExist = await AllProject.findOne({ projectName: projectName });
+
+            UserExist.projectMembers = UserExist.projectMembers.concat({ projectMembersUname, projectMembersName });
+
+            const registered = await UserExist.save();
+
+            if (registered) {
+                res.status(200).json({ messege: "Detail Saved" })
+            } else {
+                res.status(401).json({ error: "Your Password Is Not Same !" });
+            }
+        } catch (err) {
+            res.status(400).json({ error: `${err}` })
+            console.log(err);
+        }
+
+    }
+})
+router.get("/showProjectMembers", async (req, res) => {
+
+    const { projectName } = req.body;
+
+    try {
+
+        const UserExist = await AllProject.findOne({ projectName: projectName });
+
+        const userHello = UserExist
+
+        // userHello.forEach(element => {
+        //     if (element.projectMembersUname == "Pravas930642727") {
+        //         res.send(element)
+        //     }
+        // }
+        // );
+        res.send(userHello.projectMembers)
+    } catch (err) {
+        res.status(400).json({ error: `${err}` })
+        console.log(err);
+    }
+
+
+})
+
+
 
 module.exports = router;

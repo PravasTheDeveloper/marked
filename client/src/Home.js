@@ -2,49 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import HomePageContent from './components/HomePageContent'
 
-function Home() {
+function Home({data}) {
   
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
-    const callAboutPage = async() =>{
-        try{
-            const res = await fetch("/today" , {
-                method:"GET",
-                headers:{
-                    Accept : "application/json",
-                    "Content-type":"application/json"
-                },
-                credentials:"include"
-            });
+//     const callAboutPage = async() =>{
+//         try{
+//             const res = await fetch("/today" , {
+//                 method:"GET",
+//                 headers:{
+//                     Accept : "application/json",
+//                     "Content-type":"application/json"
+//                 },
+//                 credentials:"include"
+//             });
 
-            const data = await res.json();
+//             const data = await res.json();
             
-            setuserData(data);
+//             setuserData(data);
 
-            if(!res.status === 200){
-                const error = new Error(res.error);
-                throw error;
-            }
-        }catch(err){
-            console.log(err);
-            navigate("/signin");
-        }
-    }
+//             if(!res.status === 200){
+//                 const error = new Error(res.error);
+//                 throw error;
+//             }
+//         }catch(err){
+//             console.log(err);
+//             //navigate("/signin");
+//         }
+//     }
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        callAboutPage();
+//         callAboutPage();
 
-    },[]);
+//     },[]);
 
-    const [toogletab, settoogletab] = useState(1);
-    const [userData, setuserData] = useState({});
+//     const [toogletab, settoogletab] = useState(1);
+//     const [userData, setuserData] = useState({});
 
-  
 
   return (
     <>
-        <HomePageContent title="Today" data={userData} />
+        <HomePageContent title="Today" data={data} />
     </>
   )
 }

@@ -6,10 +6,10 @@ import MiddleSideContent from './MiddleSideContent/MiddleSideContent'
 import RightSideContent from './RightSideContent/RightSideContent'
 
 
-function HomePageContent({ title }) {
+function HomePageContent({ title , data}) {
     return (
         <>
-            <MiddleSideContent title={title} />
+            <MiddleSideContent title={title} data={data} />
         </>
     )
 }

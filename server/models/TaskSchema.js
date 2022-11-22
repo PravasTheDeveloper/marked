@@ -25,6 +25,12 @@ const TaskSchema = new mongoose.Schema({
             type: Boolean,
             default:false
         },
+        lastDate:{
+            type:String
+        },
+        cDate:{
+            type:String
+        },
         date: {
             type: Date,
             default: Date.now

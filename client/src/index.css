@@ -30,3 +30,12 @@ a {
 @tailwind components;
 @tailwind utilities;
 
+.Task__Add__Bar{
+  background: rgba(0, 0, 0, 0.747);
+}
+.task__Bar__X__ICON{
+  top: -15px;right: -15px;
+}
+.Task__Bar__Uper__Content{
+  top: -40px;
+}

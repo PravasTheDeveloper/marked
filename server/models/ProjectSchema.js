@@ -4,43 +4,30 @@ const jwt = require("jsonwebtoken");
 const {Schema} = mongoose;
 
 const ProjectSchema = new mongoose.Schema({
+    projectName:{
+        type:String,
+        require:true
+    },
     userNameAdmin: {
         type: String,
         require: true
+    },
+    projectType:{
+        type:String,
+        require:true
     },
     projectMembers: [{
         projectMembersUname:{
             type:String,
         },
+        projectMembersName:{
+            type:String
+        },
         memberAct:{
             type:String,
+            default:"Mod"
         },
     }],
-    tasks: [{
-        projectMembersUname:{
-            type:String,
-        },
-        taskChatagory: {
-            type: String,
-        },
-        titile: {
-            type: String,
-        },
-        subtitle: {
-            type: String,
-        },
-        content: {
-            type: String,
-        },
-        done: {
-            type: Boolean,
-            default:false
-        },
-        date: {
-            type: Date,
-            default: Date.now
-        },
-    }]
 });
 
 //Generate Web Token
